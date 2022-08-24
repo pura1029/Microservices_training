@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: git-repo-ingress
+spec:
+  tls:
+  - hosts:
+    - blog.classpath.io
+    secretName: cafe-secret
+  rules:
+  - host: blog.classpath.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: git-repo-service
+          servicePort: 80

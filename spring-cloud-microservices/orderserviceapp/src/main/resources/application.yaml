@@ -1,0 +1,34 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+server:
+  port: 8222
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryservice:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 5
+        ring-buffer-size-in-half-open-state: 5
+        wait-duration-in-open-state: 30s
+        failure-rate-threshold: 50
+        record-exception:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
+  retry:
+    instances:
+      inventoryserviceretry:
+        max-retry-attempts: 4
+        wait-duration: 2000
+        retry-exceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
+

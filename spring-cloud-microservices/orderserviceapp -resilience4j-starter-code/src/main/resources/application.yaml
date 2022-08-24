@@ -1,0 +1,55 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+server:
+  port: 8222
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryservice:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 5
+        ring-buffer-size-in-half-open-state: 3
+        wait-duration-in-open-state: 30s
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
+          - java.lang.IllegalStateException
+  retry:
+    instances:
+      retryService:
+        max-retry-attempts: 4
+        wait-duration: 5000
+        retry-exceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
+          - java.lang.IllegalStateException
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+# TODO-7 - Add the retry configuration
+

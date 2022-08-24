@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: sa
+    password: welcome
+    url: jdbc:h2:mem:orders_db
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+

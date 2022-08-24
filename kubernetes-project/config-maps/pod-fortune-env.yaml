@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: talkingcow-env
+spec:
+  containers:
+  - image: classpathio/talking-cow-env
+    name: talkingcow-env-container
+    env:
+    - name: INTERVAL
+      value: "15"

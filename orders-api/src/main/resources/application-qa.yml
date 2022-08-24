@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    username: sa
+    password: welcome
+    url: jdbc:h2:mem:orders_db
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 9222
+
+debug: false
+
+app:
+  initialize: true

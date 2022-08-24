@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: configserver
+
+encrypt:
+  key: SECRET_KEY_SYMMETRIC

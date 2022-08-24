@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitlab.com/classpath-spring-microservices/orderservice.git
+          repos:
+            inventoryservice:
+              uri: https://gitlab.com/classpath-spring-microservices/inventoryservice.git
+              clone-on-startup: true
+            productservice:
+              uri: https://gitlab.com/classpath-spring-microservices/productservice.git
+              clone-on-startup: true
+server:
+  port: 8888
+
+

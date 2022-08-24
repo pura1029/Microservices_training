@@ -1,0 +1,45 @@
+# Two containers
+# Container one - talkingcow-env
+# Container two - Nginx server with https certificate
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-https-pod
+spec:
+  containers:
+  - image: classpathio/talking-cow-env
+    name: talking-cow-container
+    env:
+    - name: INTERVAL
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-conf
+          key: sleep-interval
+  - image: nginx:alpine
+    name: web-server
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/html
+      readOnly: false
+    - name: config
+      mountPath: /etc/nginx/conf.d
+      readOnly: true
+    - name: certs
+      mountPath: /etc/nginx/certs/
+      readOnly: true
+    ports:
+    - containerPort: 82
+    - containerPort: 443
+  volumes:
+  - name: html
+    emptyDir: {}
+  - name: config
+    configMap:
+      name: nginx-conf
+      items:
+      - key: nginx-configuration-https.conf
+        path: https.conf
+  - name: certs
+    secret:
+      secretName: nginx-https

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hn-service-pod
+spec:
+  containers:
+  - image: pura1029/order-mgmt-api:1.0
+    name: order-api-container
+    ports:
+    - containerPort: 5000
+      protocol: TCP

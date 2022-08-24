@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hn-service-readinessrs
+spec: 
+  replicas: 3
+  selector:
+    matchLabels: 
+      app: nodejs-readiness
+  template: 
+    metadata: 
+      labels: 
+        app: nodejs-readiness
+    spec:
+      containers:
+      - name: nodejs-readiness-container
+        image: classpathio/nodejs-readiness-app
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5 

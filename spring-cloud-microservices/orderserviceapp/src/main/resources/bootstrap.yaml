@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: orderservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+encrypt:
+  key: TESTING
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
